@@ -18,8 +18,8 @@ By combining frequency-domain preprocessing and geometry-aware restoration, the 
 ---
 ## Installation
 ```bash
-git clone !!!!!!!!!!!!!!!
-cd !!!!!!!!!!
+git clone https://github.com/bslee8711/NTIRE2026-GeoNorm.git
+cd NTIRE2026-GeoNorm
 pip install -r requirements.txt
 ```
 
