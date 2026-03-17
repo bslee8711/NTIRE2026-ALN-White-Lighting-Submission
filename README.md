@@ -54,12 +54,12 @@ After cloning Depth Anything V2](https://github.com/DepthAnything/Depth-Anything
 ```text
 project_root/
 ├── data/
-	├── train/
-		├── in/
-		├── gt/
-	├── valid/
-		├── in/
-		├── gt/
+│   ├─ train/
+│	│	├── in/
+│	│	└── gt/
+│	└── valid/
+│		├── in/
+│		└──  gt/
 ├── IFBlend/
 ├── Depth-Anything-V2/
 ├── promptnorm/
@@ -121,6 +121,14 @@ project_root/
 Training (single GPU):
 ```bash
 cd promptnorm
-python train.py 
+python train.py --cuda 0 --num_gpus 1 --epochs 30 --batch_size 1 --patch_size 512 --num_workers 8 --train_input_dir /path/to/out/ --train_normals_dir /path/to/normal/ --train_target_dir /path/to/gt/ --test_input_dir /path/to/out(test)/ --test_normals_dir /path/to/normal(test)/ --test_target_dir /path/to/gt(test)/ --ckpt_dir /path/to/checkpoint/output/
 ```
 You may adjust training settings in `options.py` according to your environment and dataset configuration.
+
+### 5. Inference
+For inference, apply the same preprocessing steps used during training (IFBlend, depth estimation, and normal map generation) to the test set.
+Then run:
+```bash
+cd promptnorm
+python inference.py --cuda 0 --test_input_dir /path/to/out/ --test_normals_dir /path/to/normal/ --pretrained_ckpt_path /path/to/ckpt/ --output_path /path/to/output/
+```
