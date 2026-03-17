@@ -1,6 +1,6 @@
 # NTIRE2026-ALN White Lighting Submission
 
-This repository is for NTIRE2026 Ambient Light Normalization (ALN) White Lighting submission.
+This repository contains solution of Team GeoNorm for the NTIRE 2026 Ambient Light Normalization (ALN) White Lighting challenge.
 
 ---
 
@@ -24,39 +24,32 @@ pip install -r requirements.txt
 ```
 
 ---
-### PromptNorm
+## Code Base and Dependencies
+
+### [PromptNorm](https://github.com/davidserra9/promptnorm)
 
 We use a modified version of [PromptNorm](https://github.com/davidserra9/promptnorm)
 We adapted and extended the code for our NTIRE 2026 submission, including geometry-guided inputs and modified training/inference pipelines.
 
-### IFBlend
+### [IFBlend](https://github.com/fvasluianu97/IFBlend)
 
 We include a modified version of [IFBlend](https://github.com/fvasluianu97/IFBlend) directly in this repository.
 We adapted IFBlend for integration into our pipeline.
+
+
+### [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2)
+Please clone the official repository and place it in the project root directory 
+(same level as `PromptNorm` and `IFBlend`):
+```bash
+git clone https://github.com/DepthAnything/Depth-Anything-V2.git
+```
 
 Note:  
 Pretrained weights are **not included**.  
 Please download them from the official IFBlend repository and place them according to their instructions.
 
---- 
-## External Repositories Setup
-
-```markdown
-We do not redistribute pretrained weights from external repositories.
-Please obtain them directly from the official sources.
-```
-
-This project builds upon and modifies existing implementations from prior works.  
-Please clone the following repositories and place them in your working directory:
-
-
-### 2. [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2)
-Please follow the official repository instructions to:
-	•	download pretrained depth estimation models
-	•	place them in the correct locations as described in their README
-
 ## Running
-After cloning Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2), download Challenge dataset and split it into trainset and validation set. 
+After cloning Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) and preparing the dataset into training and validation sets as follows:
 
 ```text
 project_root/
@@ -72,29 +65,32 @@ project_root/
 ├── promptnorm/
 └── requirements.txt
 ```
-### IFBlend output generation
-Change the Folder name following IFBlend official repository.
+### 1. IFBlend Preprocessing
+Follow the IFBlend naming convention for input/output directories.
 ```bash
 cd IFBlend/
 python inference.py --data_src /path/to/input/ --ckp_dir checkpoints --res_dir /path/to/output/dir --load_from IFBlend_ambient6k
 ```
-Then change the output file to out and place it in the same place as in/ and gt/
+After inference:
+rename the output directory to `out`
+place it alongside `in/` and `gt/`
 
-### Depth map generation
-We used provided ViT-Large model to generate depth map in [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2).
+
+### 2. Depth map generation
+We use the ViT-Large model provided by [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2):
 ```bash
 cd Depth-Anything-V2/
 python run.py --img-path /path/to/input/ --outdir /path/to/depth/ --encoder vitl --pred-only
 ```
-Name the depth folder 'depth' and place it in the same place as in/, gt/, out/ 
+Rename output directory to `depth` and place it alongside: `in/`, `gt/`, and `out/'
 
-### Normal map generation
-Create a folder name 'normal' in the same place as in/, gt/, out/, depth.
+### 3. Normal map generation
+Create a directory named `normal` in the same location
 ```bash
 cd promptnorm
 python utils/depth2normal.py
 ```
-After finishing all of these processes above, your folder will look like this:
+After finishing all preprocessing steps, the directory structure should be:
 ```text
 project_root/
 ├── data/
@@ -121,10 +117,10 @@ project_root/
 ├── promptnorm/
 └── requirements.txt
 ```
-### PromptNorm training
-Training on single GPU
+### 4. PromptNorm training
+Training (single GPU):
 ```bash
 cd promptnorm
 python train.py 
 ```
-Modify the configuration of `options.py`.
+You may adjust training settings in `options.py` according to your environment and dataset configuration.
