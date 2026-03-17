@@ -56,7 +56,7 @@ Please follow the official repository instructions to:
 	•	place them in the correct locations as described in their README
 
 ## Running
-After cloning Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2), download Challenge dataset and split it into trainset and validation set. It should be look like this.
+After cloning Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2), download Challenge dataset and split it into trainset and validation set. 
 
 ```text
 project_root/
@@ -73,7 +73,58 @@ project_root/
 └── requirements.txt
 ```
 ### IFBlend output generation
+Change the Folder name following IFBlend official repository.
 ```bash
 cd IFBlend/
-pip install -r requirements.txt
+python inference.py --data_src /path/to/input/ --ckp_dir checkpoints --res_dir /path/to/output/dir --load_from IFBlend_ambient6k
 ```
+Then change the output file to out and place it in the same place as in/ and gt/
+
+### Depth map generation
+We used provided ViT-Large model to generate depth map in [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2).
+```bash
+cd Depth-Anything-V2/
+python run.py --img-path /path/to/input/ --outdir /path/to/depth/ --encoder vitl --pred-only
+```
+Name the depth folder 'depth' and place it in the same place as in/, gt/, out/ 
+
+### Normal map generation
+Create a folder name 'normal' in the same place as in/, gt/, out/, depth.
+```bash
+cd promptnorm
+python utils/depth2normal.py
+```
+After finishing all of these processes above, your folder will look like this:
+```text
+project_root/
+├── data/
+│	├── train/
+│	├────── in/
+│	│		└── 0_in.png
+│	├────── out/
+│	│		└── 0_in_out.png
+│	├────── gt/
+│	│		└── 0_gt.png
+│	├────── normal/
+│	│		└── 0_normal.png
+│	├────── depth/
+│	│		└── 0_in.png
+│	│
+│	└── valid/
+│		├── in/
+│		├── gt/
+│		├── out/
+│		├── normal/
+│		└──depth/
+├── IFBlend/
+├── Depth-Anything-V2/
+├── promptnorm/
+└── requirements.txt
+```
+### PromptNorm training
+Training on single GPU
+```bash
+cd promptnorm
+python train.py 
+```
+Modify the configuration of `options.py`.
