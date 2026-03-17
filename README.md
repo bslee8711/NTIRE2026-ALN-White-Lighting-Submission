@@ -31,11 +31,7 @@ We adapted and extended the code for our NTIRE 2026 submission, including geomet
 
 ### IFBlend
 
-We include a modified version of IFBlend directly in this repository.
-
-The original implementation is available at:
-- [IFBlend](https://github.com/fvasluianu97/IFBlend)
-
+We include a modified version of [IFBlend](https://github.com/fvasluianu97/IFBlend) directly in this repository.
 We adapted IFBlend for integration into our pipeline.
 
 Note:  
@@ -53,14 +49,31 @@ Please obtain them directly from the official sources.
 This project builds upon and modifies existing implementations from prior works.  
 Please clone the following repositories and place them in your working directory:
 
-### 1. [IFBlend](https://github.com/fvasluianu97/IFBlend)
-Please follow the instructions in the IFBlend repository to:
-	•	download pretrained weights
-	•	place the weights in the appropriate directory as specified in their README
 
 ### 2. [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2)
 Please follow the official repository instructions to:
 	•	download pretrained depth estimation models
 	•	place them in the correct locations as described in their README
 
+## Running
+After cloning Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2), download Challenge dataset and split it into trainset and validation set. It should be look like this.
 
+```text
+project_root/
+├── data/
+	├── train/
+		├── in/
+		├── gt/
+	├── valid/
+		├── in/
+		├── gt/
+├── IFBlend/
+├── Depth-Anything-V2/
+├── promptnorm/
+└── requirements.txt
+```
+### IFBlend output generation
+```bash
+cd IFBlend/
+pip install -r requirements.txt
+```
