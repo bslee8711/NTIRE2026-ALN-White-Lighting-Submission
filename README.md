@@ -29,6 +29,19 @@ pip install -r requirements.txt
 We use a modified version of [PromptNorm](https://github.com/davidserra9/promptnorm)
 We adapted and extended the code for our NTIRE 2026 submission, including geometry-guided inputs and modified training/inference pipelines.
 
+### IFBlend
+
+We include a modified version of IFBlend directly in this repository.
+
+The original implementation is available at:
+- [IFBlend](https://github.com/fvasluianu97/IFBlend)
+
+We adapted IFBlend for integration into our pipeline.
+
+Note:  
+Pretrained weights are **not included**.  
+Please download them from the official IFBlend repository and place them according to their instructions.
+
 --- 
 ## External Repositories Setup
 
@@ -49,3 +62,5 @@ Please follow the instructions in the IFBlend repository to:
 Please follow the official repository instructions to:
 	•	download pretrained depth estimation models
 	•	place them in the correct locations as described in their README
+
+
