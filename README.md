@@ -1,4 +1,4 @@
-# NTIRE2026-ALN-White-Lighting-Submission
+# NTIRE2026-ALN White Lighting Submission
 
 This repository is for NTIRE2026 Ambient Light Normalization (ALN) White Lighting submission.
 
