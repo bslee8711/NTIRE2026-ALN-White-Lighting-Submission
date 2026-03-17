@@ -1,6 +1,6 @@
 # NTIRE2026-ALN White Lighting Submission
 
-This repository contains solution of Team GeoNorm for the NTIRE 2026 Ambient Light Normalization (ALN) White Lighting challenge.
+This repository contains the solution of Team GeoNorm for the NTIRE 2026 Ambient Light Normalization (ALN) White Lighting challenge.
 
 ---
 
@@ -22,6 +22,22 @@ git clone https://github.com/bslee8711/NTIRE2026-GeoNorm.git
 cd NTIRE2026-GeoNorm
 pip install -r requirements.txt
 ```
+
+---
+## Code Attribution
+
+This repository is built upon and modified from existing publicly available implementations, primarily:
+
+- PromptNorm: https://github.com/davidserra9/promptnorm  
+- IFBlend: https://github.com/fvasluianu97/IFBlend  
+
+We adapted and extended these codebases for the NTIRE 2026 Ambient Light Normalization challenge, including:
+- integration of IFBlend preprocessing  
+- geometry-guided inputs via surface normals  
+- depth-to-normal conversion  
+- modified training and inference pipelines  
+
+Please refer to the original repositories for the unmodified implementations and licensing details.
 
 ---
 ## Code Base and Dependencies
@@ -49,7 +65,7 @@ Pretrained weights are **not included**.
 Please download them from the official IFBlend repository and place them according to their instructions.
 
 ## Running
-After cloning Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) and preparing the dataset into training and validation sets as follows:
+After cloning [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) and preparing the dataset into training and validation sets as follows:
 
 ```text
 project_root/
@@ -66,14 +82,14 @@ project_root/
 └── requirements.txt
 ```
 ### 1. IFBlend Preprocessing
-Follow the IFBlend naming convention for input/output directories.
+Follow the [IFBlend](https://github.com/fvasluianu97/IFBlend) naming convention for input/output directories.
 ```bash
 cd IFBlend/
 python inference.py --data_src /path/to/input/ --ckp_dir checkpoints --res_dir /path/to/output/dir --load_from IFBlend_ambient6k
 ```
 After inference:
-rename the output directory to `out`
-place it alongside `in/` and `gt/`
+- rename the output directory to `out`
+- place it alongside `in/` and `gt/`
 
 
 ### 2. Depth map generation
@@ -82,10 +98,10 @@ We use the ViT-Large model provided by [Depth Anything V2](https://github.com/De
 cd Depth-Anything-V2/
 python run.py --img-path /path/to/input/ --outdir /path/to/depth/ --encoder vitl --pred-only
 ```
-Rename output directory to `depth` and place it alongside: `in/`, `gt/`, and `out/'
+Rename output directory to `depth` and place it alongside: `in/`, `gt/`, and `out/`
 
 ### 3. Normal map generation
-Create a directory named `normal` in the same location
+Create a directory named `normal` in the same location.
 ```bash
 cd promptnorm
 python utils/depth2normal.py
@@ -132,3 +148,13 @@ Then run:
 cd promptnorm
 python inference.py --cuda 0 --test_input_dir /path/to/out/ --test_normals_dir /path/to/normal/ --pretrained_ckpt_path /path/to/ckpt/ --output_path /path/to/output/
 ```
+
+## Acknowledgements
+
+This work builds upon several publicly available methods, including:
+
+- [PromptNorm](https://github.com/davidserra9/promptnorm)
+- [IFBlend](https://github.com/fvasluianu97/IFBlend)
+- [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2)
+
+We thank the authors for making their code and models publicly available.
