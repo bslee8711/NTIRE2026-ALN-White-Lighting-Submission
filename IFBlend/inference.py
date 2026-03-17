@@ -125,7 +125,7 @@ if __name__ == '__main__':
     parser.add_argument("--res_dir", default="./final-results", help="Path for output dir")
     parser.add_argument("--ckp_dir", default="./checkpoints", help="Checkpoint root dir")
     parser.add_argument("--load_from", default="IFBlend_ambient6k", help="Checkpoint experiment name")
-    parser.add_argument("--tile_size", type=int, default=1536, help="Tile size for tiled inference")
+    parser.add_argument("--tile_size", type=int, default=3000, help="Tile size for tiled inference")
     parser.add_argument("--overlap", type=int, default=32, help="Overlap between tiles")
     parser.add_argument("--use_amp", action="store_true", help="Use mixed precision during inference")
     parser.add_argument("--num_workers", type=int, default=8)
